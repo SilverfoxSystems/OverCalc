@@ -1,0 +1,209 @@
+Private Shared Sub FixedMulXL(ByRef xl0 As Hyper, ByRef xl1 As Hyper, Optional prec% = 2000000000)
+
+        hiExp0% = xl0.FindHighExponent
+        loExp0% = xl0.FindLowExponent()
+        hiExp1% = xl1.FindHighExponent
+        loExp1% = xl1.FindLowExponent()
+
+
+        'depth% = 0
+        Dim r As New Hyper(hiExp1 + hiExp0, loExp0)
+        'rng% = 0
+
+        Dim buffr&(r.BufferSize - 1)
+        ptr0% = 0
+        Dim tmp As Hyper
+        buffSz1% = xl1.BufferSize ' hiExp1
+        Dim tmpr&(xl1.BufferSize - 1)
+        diff% = loExp1
+        xl0.PartSize = 0
+
+        Dim buff1&(buffSz1 - 1)
+        For i% = 0 To buffSz1 - 1
+            buff1(i) = xl1.Buffer(i)
+        Next
+        'Dim buffr&()
+        'ReDim buffr
+
+frstLup:
+        For i% = 0 To -diff
+            'For i% = diff To 0
+
+
+        Next
+
+
+
+lup:
+        'diff% = ptr0 + loExp1
+        'ptr1% = xl1.BufferSize ' hiExp1
+        If diff < 0 Then
+            ptr1 = buffSz1 + diff
+            For I% = ptr1 To buffSz1
+
+            Next
+
+        Else
+            'ptr1 = 0
+            tmp = xl0.Buffer(ptr0) * xl1
+        End If
+
+
+
+
+
+        'Hyper.AddX(r, buffr(ptr1),,)
+        'xl0.PartSize += 1
+        diff += 1
+        GoTo lup
+        'tmp=new Hyper ()
+
+        '        minExp% = start + loExp1
+        '       Dim acc As New Hyper(minExp, minExp + 1)
+        'Dim tmp As New Hyper(r.bu)
+        'HyperLib.NativeCmd.
+        'acc.Divide ()
+        nProcessors% = Environment.ProcessorCount
+
+        Dim ths As New List(Of Thread)
+
+
+        For i% = 1 To nProcessors - 1
+            'ths.Add(New Thread(MultiProcessorMul))
+        Next
+        'LowExpOnLD = ai+prec
+        'lowexponld=max(lowexponld,loExp1)
+        'beri leold to hiexp1
+        ' fukni v R
+
+
+
+        'LdLen = 
+
+        'ai to -prec
+        ''(ai+hiExp1) to -prec
+
+        Dim start% = loExp0
+        If -(loExp0 + loExp1) > prec Then
+            start = -loExp1 - prec '- 1
+
+            '    -prec= start + lo2
+
+            '       Else
+            'start=
+        End If
+
+
+
+
+        'ai + loexp
+
+        '        acc.
+        '       For i% = 0 To 0 + i
+
+        '        Next
+
+
+
+
+
+
+
+
+
+        endd% = hiExp0 + hiExp1 + 1
+        '        Dim r As New Hyper(start, endd)
+        r.PartSize = hiExp0 - loExp0
+        'Dim tmp As New Hyper(xl * )
+        'Hyper.mul
+
+        For i = hiExp0 To start Step -1
+
+
+            r.PartSize += 1
+            x& = r(0)
+            'r.Add()
+        Next
+
+
+        '543 210
+        '----------
+        '031 600,005
+        '        10,00001
+        '       10 00,001
+        'b1* a2 +=> r3
+        'b0* a2 +=> r2
+        'b* a2 +=> r3
+        'expOut= ia + hiExp1
+
+        'r.partsize-= (i + hiexp1)
+
+
+
+        'b1* a2 +=> r4
+        'b0* a2 +=> r3
+        'b* a2 +=> r4
+        '   0,100001
+
+
+        'xl.PartSize -= start
+
+        'r.Multiply()
+
+
+
+
+    End Sub
+
+
+    Function ExtractArrayFromB() As Long()
+
+        Dim r&(b.BufferSize - 1)
+
+        'Hyper.AddX()
+
+        Return r
+    End Function
+    'Shared currIX%, maxIX%
+
+    'Shared acc As Hyper
+    'Shared buffAcc&(), buff2&()
+    'Async Sub MultiProcessorMul()
+
+    'End Sub
+
+
+
+End Class
+
+Public Class HyperM
+    'Implements Hyper
+    Inherits Hyper
+    'MustInherit hyper
+    'Public Declare  buff&()
+    Sub New()
+        MyBase.New(0, 0) 'initialize integer
+
+        '   buff(6) = 0
+        'MyBase.New()
+        'End Sub
+
+        ' Public Sub New(h As HyperM, fromIndex%, PartSz%)
+        '    Public Overrides Sub New(ByRef h As HyperM)
+
+        'MyBase.New(buff, PartSz)
+
+
+        'l% = h.buff.Length - fromIndex
+        ' ReDim buff(l)
+        'Array.Copy(h.buff, fromIndex, buff, 0, l)
+
+
+    End Sub
+
+    '    Public Overloads Function Clone(ByRef h As Hyper)
+    '    Sub er()
+
+    '    End Sub
+    '    End Function
+En
