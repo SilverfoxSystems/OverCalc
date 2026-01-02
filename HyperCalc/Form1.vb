@@ -1,4 +1,4 @@
-﻿Option Explicit Off
+Option Explicit Off
 
 'Imports System
 Imports System.ComponentModel
@@ -61,20 +61,12 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
 
-        ' Dim one As New Hyper(".5")
-        'Dim d1 As New Hyper("0.5")
-        'one(0) = 1
-        'one *= d1 ' * one
-        ' d1 *= one
-        'MsgBox(d1.ToString)
-
 
         Try
             If IsNothing(a) Then GoTo npr
             LdInput()
             't = DateAndTime.Timer
 
-            'napr:
 
 
             Select Case ComboBox1.SelectedIndex
@@ -83,28 +75,20 @@ Public Class Form1
                 Case 1
                     a.Subtract(b)
                 Case 2
-                    'a.StripZeros()
 
 
 
                     a *= b
 
-                   ' a.StripZeros()
+                    a.StripZeros()
 
                 Case 3
 
                     If chkINT(b) Then
                         a.Divide(b(0), PrecOnDivByInt64)
                     Else
-                        'a = BigDivide(a, b)
-
-                        ' Dim test As New Hyper(a)
-                        'DivideXLnwt(test, b, XLdivPrec, nIterationsAtDiv)
-                        'DivideXLnwt(a, b, XLdivPrec, nIterationsAtDiv)
                         DivideXL(a, b, XLdivPrec, nIterationsAtDiv)
 
-                        '                        a.StripZeros()
-                        'isApprox = True
                     End If
 
                 Case 4
@@ -142,9 +126,6 @@ Public Class Form1
 
 skipDbl:
 
-            'If -a.GetBottExp > OALprec Then
-            'a.Round(OALprec)
-            'End If
 
 
             s2$ = ""
@@ -247,11 +228,8 @@ npr:
 
     Sub DivideXL(ByRef r1 As Hyper, ByRef d As Hyper, precision%, Optional nIterations% = 5500) ' As Hyper
 
-        ' precision \ 2
-        '        Hyper.QuotientPrecision = precision
 
         Dim r As New Hyper(0, 0)
-        'Dim r1 As New Hyper(0, 0)
         hiXp% = d.FindHighExponent()
         z& = d(hiXp)
         Dim rest As New Hyper(d)
@@ -259,18 +237,11 @@ npr:
         rest(hiXp) = 0
         rest.PartSize = rest.BufferSize - 1
 
-        'rest.Multiply(2)
-        'r1.Multiply(2)
-
-        'If 1 = 0 Then
-
         If Not rest.IsNotZero Then
             r1.Divide(z, precision)
             r1.PartSize += hiXp
             Exit Sub
         End If
-        '        r(0) = 0
-        'ix% = -hiXp
 
         one% = 1
 
@@ -280,7 +251,6 @@ npr:
                 r1.Divide(z, precision)
             End If
 
-            'r.Add(r1) 'Else r.Add(r1)
             If (ii And one) Then r.Subtract(r1) Else r.Add(r1)
 
             r1 *= rest
@@ -289,11 +259,9 @@ npr:
 
 
         Next
-        'r.StripZeros()
         r.PartSize += hiXp
 
         r1 = r.Clone
-        'Return r
 
     End Sub
 
@@ -319,13 +287,6 @@ npr:
         For i% = 0 To 5
             ms.Add(New Hyper(0, 0))
         Next
-        '     a = New Hyper("35")
-        '  ReDim bbuff(1)
-        '   b = New Hyper(bbuff, 0)
-        '   Hyper.AddX(b,)
-        '    b.DefineFromDecimal(44, "0")
-        'b(0) += 4
-        'Dim q As New HyperM
 
     End Sub
 
@@ -416,7 +377,7 @@ npr:
                 Else
                     TextBox1.Clear()
                     a = Nothing
-                    'b = Nothing
+                    b = Nothing
                     bbuff = Nothing
                     izpis()
                     TextBox2.Focus()
@@ -465,19 +426,12 @@ Keys.Home, Keys.End, Keys.E
         ms(txMems.SelectedIndex) = a.Clone
         If CheckBox1.Checked Then
 
-            'If TextBox2.TextLength Then lastTextInp = TextBox2.Text
-            '   If Strings.Left(rtx.Lines(UBound(rtx.Lines)), 4) <> " = M" Then
-            '& txMems.SelectedIndex Then
             rtx.AppendText(vbCrLf & " = M" & txMems.SelectedIndex)
-            'lastTextInp & " = " & vbCrLf & s2)
 
             rtx.SelectionStart = rtx.TextLength
             rtx.ScrollToCaret()
 
-            '  Else
-            ' rtx.Lines(UBound(rtx.Lines)) = " = M" & txMems.SelectedIndex
 
-            '        End If
         End If
 
         TextBox2.Focus()
@@ -498,8 +452,6 @@ Keys.Home, Keys.End, Keys.E
     End Sub
 
 
-
-    'Class GfG
 
 
 
@@ -535,17 +487,13 @@ Keys.Home, Keys.End, Keys.E
 
     Private Function NthRoot(ByRef h As Hyper, n%) As Hyper
         Dim r As Hyper
-        '  Dim r As New Hyper(0, 0)
-        'Dim rcpN As New Hyper(Reciprocal(h))
         hiExp0% = h.FindHighExponent
-        prec% = NthRootPrec '- (hiExp0 \ 2)
+        prec% = NthRootPrec
         If hiExp0 < 0 Then prec -= hiExp0
-        'prec% = NthRootPrec - (h.GetBottExp \ 2)
 
         i% = 0
         Dim rcpN As New Hyper("1")
 
-        'rcpN.Divide(n, PrecOnDivByInt64)
         rcpN.Divide(n, prec)
         nMinus1 = n - 1
 
@@ -553,12 +501,10 @@ Keys.Home, Keys.End, Keys.E
         Dim tmp1 As Hyper
 
         hiExp% = hiExp0
-        'r(0) = 
         If hiExp0 >= 0 Then
             hiExp \= n
 
-            'hiExp += 1
-        Else 'if hiexp
+        Else
             hiExp += 1
             hiExp \= n
             hiExp -= 1
@@ -572,9 +518,7 @@ Keys.Home, Keys.End, Keys.E
 
 
 
-        '        If (hiExp0 Mod n) = 0 Then
         If oddity = 0 Then
-            'r(hiExp) =
             rut# = h(hiExp0) ^ (1 / n)
             r(hiExp) = rut
 
@@ -582,54 +526,31 @@ Keys.Home, Keys.End, Keys.E
             If oddity < 0 Then oddity += n
 
 
-            '            Else
-            '=            rut# = (CDbl(h(hiExp0)) * (2 ^ 64) * oddity) ^ (1 / n)
             tmp = New Hyper(oddity, oddity)
-                tmp(oddity) = h(hiExp0)
-                tmp(oddity - 1) = h(hiExp0 - 1)
-                rut# = 0
-                tmp.ExtractDouble(rut)
+            tmp(oddity) = h(hiExp0)
+            tmp(oddity - 1) = h(hiExp0 - 1)
+            rut# = 0
+            tmp.ExtractDouble(rut)
 
-                rut ^= (1 / n)
-                '            rut# = h(hiExp0) ^ (1 / n)
+            rut ^= (1 / n)
 
-                '            tmp = New Hyper((1 / rut).ToString) ' * (2 ^ 63)
-                'r(hiExp ) = tmp(-1)
-
-                ' If (oddity And 1) Then rut = 1 / rut
-
-                r(hiExp) = rut
-                'r = New Hyper(rut.ToString)
-                'r.PartSize -= (hiExp)
-            End If
-
-        '       End If
-
-
-        '        r(hiExp) = rut
+            r(hiExp) = rut
+        End If
 
 
         For i = 1 To nIterationsAtSqr
-            'tmp = New Hyper(r)
             tmp1 = New Hyper(r)
 
             tmp = NthPower(r, nMinus1, prec)
-            'For i2% = 2 To nMinus1
-            'tmp *= tmp1
-            'Next
 
             r = h.Clone
 
             DivideXL(r, tmp, prec, nIterationsAtDiv)
-            'DivideXL(r, tmp, XLdivPrec, nIterationsAtDiv)
-            'DivideXLnwt(r, tmp, XLdivPrec, nIterationsAtDiv)
             tmp1.Multiply(nMinus1)
             tmp1.Add(r)
 
             r = tmp1 * rcpN
-            'r = tmp
-            ' r.Divide(n, PrecOnDivByInt64)
-            If r.GetBottExp + 20 < -prec Then  r.Round(prec)
+            If r.GetBottExp + 20 < -prec Then r.Round(prec)
             r.StripZeros()
 
 
@@ -645,14 +566,10 @@ Keys.Home, Keys.End, Keys.E
 
         i2% = 1
         Dim tmp As New Hyper(h)
-        'Dim tmp As New Hyper("1")
 
         Dim r As New Hyper(0, 0)
         r(0) = 1
 
-        'binary
-
-        'For i% = 0 To 30
 
         While i2 <= n
             If i2 And n Then
@@ -667,53 +584,15 @@ Keys.Home, Keys.End, Keys.E
         End While
 
         Return r
-        'Exit Sub
 
     End Function
 
 
-    Function neki()
-
-
-
-        '        While n >= 2 ^ i2
-        While n >= i2 ' (1 >> i2)
-            i2 <<= 1
-            tmp *= tmp
-
-            'i2 += 1
-        End While
-
-        i% = n - i2
-        tmp = h
-
-        While i
-            i2 >>= 1
-
-        End While
-
-
-
-
-        If n >= 2 Then
-            tmp *= h
-            If n >= 4 Then
-                tmp *= tmp
-                i2 = 4
-
-            End If
-            For i% = i2 To n
-                tmp *= h
-            Next
-        End If
-
-    End Function
 
 
     Private Function SqrXLnwt(ByRef x As Hyper, Optional prec% = 20) As Hyper
 
 
-        'x = New Hyper(-2, 0) : x(1) = 2
 
         prec = XLdivPrec
         Dim r As New Hyper(0, 0)
@@ -1090,22 +969,10 @@ napr:
         Dim l As New Hyper(0, 0)
 
         For i% = 0 To n - 1
-            'If k.GetBottExp < -OALprec Then k.Round(OALprec)
-
-
-
-            'l = New Hyper(two - k)
-            'If i = 34 Then            i = i
-
-            'l = two - k
             l = SqrXL(New Hyper(two - k))
             l.Multiply(2 ^ (i))
-            ''l.PartSize -= 1
-            'If 2 * l < two Then brejk% = 0
-            '            End If
             l.StripZeros()
             If l.GetTopExp < 0 Then l(0) = 0
-            'l(l.GetTopExp + 2) = 0
             TextBox1.Text = "(" & i & ") " & olepšaj(l.ToString)
             TextBox1.Refresh()
 
@@ -1116,11 +983,8 @@ napr:
         Next
 
         l = SqrXL(New Hyper(two - k))
-        ''l = SqrXL(l)
         l.Multiply(2 ^ (n))
 
-        'l.Multiply(2 ^ (n - 1))
-        'l.PartSize -= 1
         Return l
 
     End Function
@@ -1156,7 +1020,6 @@ napr:
         TextBox2.Clear()
 
         If CheckBox1.Checked Then
-            '            If final Then
 
             If TextBox2.TextLength Then lastTextInp = TextBox2.Text
 
@@ -1177,25 +1040,17 @@ napr:
         Else
 
         End If
-        '        End If
 
     End Sub
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
-        '      If TextBox2.SelectionStart Then
         Button1.PerformClick()
-        'LdInput()
-        ' a = b
         ComboBox1.SelectedIndex = 6
 
-        '       outputA(False)
     End Sub
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
-        'If TextBox2.SelectionStart Then
         ComboBox1.SelectedIndex = -1
         Button1.PerformClick()
-        'LdInput()
-        ' a = b
         ComboBox1.SelectedIndex = 5
         finishUp()
 
@@ -1210,7 +1065,6 @@ napr:
     Sub finishUp()
         a.StripZeros()
         prepareA()
-        '        a = floorSqrt(b)
         s2$ = olepšaj(a.ToString)
         TextBox1.Text = s2
         TextBox2.Clear()
@@ -1221,7 +1075,6 @@ napr:
     Private Sub LdInput()
 
         Try
-            'If IsNothing(a) Then GoTo npr
             txt$ = TextBox2.Text
 
             s$ = txt.Replace(" ", "")
@@ -1230,23 +1083,11 @@ napr:
                 txt = Mid(s, 2)
                 memNr% = txt
                 b = ms(memNr).Clone
-                '                GoTo napr
                 Exit Sub
             End If
 
-            'If InStr(s, ",") Then
-            'txt = s.Replace(",", ".")
-
-            'End If
             If s.Length Then
                 b = New Hyper(s)
-                'b.StripZeros()
-                'Dim tmp As New Hyper(s)
-                'ReDim bbuff(0)
-                'b.PartSize = 0
-                'b.Add(tmp)
-                'b += tmp
-                'ElseIf Not IsNothing(b) Then
             Else
                 b = a.Clone
 
