@@ -4,8 +4,4 @@ HyperLib must be installed from [Visual Studio Marketplace- Hyper]( https://mark
 
 The compiled app is available here (no installation required): [HyperCalc](http://i-z-i.top/Apps/HyperCalc/)
 
-<<<<<<< HEAD
-Under development
-=======
 **Under development**
->>>>>>> up da te
