@@ -529,9 +529,6 @@ Keys.Home, Keys.End, Keys.E
 
     Dim nIterationsPi% = 61
 
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        TextBox1.Text = CalculatePi().ToString
-    End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
 

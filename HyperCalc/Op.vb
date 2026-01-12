@@ -54,9 +54,6 @@ Module Op
     Friend Function DivideXL(ByRef h As Hyper, ByRef d As Hyper, precision%) As Hyper
         'Friend Function DivideXL(ByRef r1 As Hyper, ByRef d As Hyper, precision%, Optional nIterations% = 5500) As Hyper
         nIterations% = nIterationsAtDiv
-        ' precision \ 2
-        '        Hyper.QuotientPrecision = precision
-        'neg% = 0
 
         Dim r As New Hyper(0, 0)
         'Dim r1 As New Hyper(0, 0)
@@ -71,30 +68,16 @@ Module Op
         ' neg = 0 = 0
         'End If
 
-        'rest.Multiply(2)
-        'r1.Multiply(2)
-
-        'If 1 = 0 Then
 
         Dim r1 As New Hyper(h)
-        '        Dim neg As Boolean
         If Not rest.IsNotZero Then
 
             r = r1.Clone
             r.Divide(z, precision)
             r.PartSize += hiXp
             Return r
-            'Exit Sub
-            'ElseIf z > 0 AndAlso rest.IsNegative Then
-            'rest.PartSize -= 1
-            ' rest.Negate()
-            ' z = rest(0)
-            'rest(0) = 0
-            'neg = 1 ' True
 
         End If
-        '        r(0) = 0
-        'ix% = -hiXp
 
         one% = 1
 
@@ -104,10 +87,10 @@ Module Op
                 r1.Divide(z, precision)
             End If
 
-            r.Add(r1) 'Else r.Add(r1)
+            '  r.Add(r1) 'Else r.Add(r1)
             'r.Subtract(r1) 'Else r.Add(r1)
             'If (ii And one) = 0 Then r.Subtract(r1) Else r.Add(r1)
-            'If (ii And one) Then r.Subtract(r1) Else r.Add(r1)
+            If (ii And one) Then r.Subtract(r1) Else r.Add(r1)
 
             r1 *= rest
             If r1.GetTopExp - r1.FindHighExponent > LeadingZerosTolerance Then r1.StripZeros()
