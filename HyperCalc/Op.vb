@@ -10,10 +10,6 @@ Module Op
     Friend nIterationsAtDiv% = 1444
     Friend XLdivPrec% = 44
 
-    Sub New()
-        '        Dim j As Divide = AddressOf DivideXL
-        '       j = AddressOf QuickDivide
-    End Sub
 
     Friend Sub AssignDivMethod(method As DivisionMethodDef)
         Select Case method
@@ -52,21 +48,15 @@ Module Op
 
 
     Friend Function DivideXL(ByRef h As Hyper, ByRef d As Hyper, precision%) As Hyper
-        'Friend Function DivideXL(ByRef r1 As Hyper, ByRef d As Hyper, precision%, Optional nIterations% = 5500) As Hyper
         nIterations% = nIterationsAtDiv
 
         Dim r As New Hyper(0, 0)
-        'Dim r1 As New Hyper(0, 0)
         hiXp% = d.FindHighExponent()
         z& = d(hiXp)
         Dim rest As New Hyper(d)
         rest.StripZeros()
         rest(hiXp) = 0
         rest.PartSize = rest.BufferSize - 1
-        'If rest.IsNegative Xor (z < 0) Then
-        'rest.Negate()
-        ' neg = 0 = 0
-        'End If
 
 
         Dim r1 As New Hyper(h)
@@ -87,9 +77,6 @@ Module Op
                 r1.Divide(z, precision)
             End If
 
-            '  r.Add(r1) 'Else r.Add(r1)
-            'r.Subtract(r1) 'Else r.Add(r1)
-            'If (ii And one) = 0 Then r.Subtract(r1) Else r.Add(r1)
             If (ii And one) Then r.Subtract(r1) Else r.Add(r1)
 
             r1 *= rest
@@ -98,12 +85,9 @@ Module Op
 
 
         Next
-        'r.StripZeros()
         r.PartSize += hiXp '+ neg
-        'If neg Then r.Negate()
 
 
-        'r1 = r.Clone
         Return r
     End Function
 
@@ -126,7 +110,6 @@ Module Op
 
                 tmp = New Hyper(0, 0)
                 tmp(0) = 1
-                'DivideXL(tmp, r, prec) ', nIterationsAtDiv)
                 Return DivisionXL(tmp, d, prec) ', nIterationsAtDiv)
 
             Case DivisionMethodDef.Logarithmic
@@ -148,14 +131,12 @@ Module Op
         Dim r As New Hyper(0, 0)
         e = d.FindHighExponent
 
-        'If True Then
         If False Then
 
             r(0) = 1
             r.Divide(d(e), prec)
             r.PartSize += e
             r.StripZeros()
-            ' Debug.WriteLine(r.ToString)
         Else
 
             r = ReciprocalValQ(d, My.Settings.DivPrecQuick)
@@ -182,26 +163,19 @@ Module Op
         Dim r As New Hyper(precision, 0) ' New Hyper(0, 0)
         Dim bp, r1 As Hyper
 
-        lowVal& = 0 ' d(lowExp)
+        lowVal& = 0
 
         hiExp% = d.FindHighExponent
-        lowExp% = d.FindLowExponent '000000000000000000000000000000000000000000000 d.PartSize
-        '        precision += hiExp - lowExp
+        lowExp% = d.FindLowExponent
         endpos% = precision ' + lowExp
 
-        'If lowExp < n Then
         If precision < hiExp - lowExp Then
             lowExp = hiExp - precision
             d(lowExp) = d(lowExp) Or 1
             lowVal& = d(lowExp)
         Else
-            '        d(lowestNZ)
             lowVal& = d(lowExp)
             If lowVal And 1 = 0 Then
-                ' Debug.WriteLine("even nr")
-                'if the least significant bit is 0, then we can help ourselves with dividing/multiplying the dividend, and then the result, by 2^n.
-
-                'lowVal = 1 Or lowVal
                 d(lowExp - 1) = 1
                 lowVal = 1
                 lowExp -= 1
@@ -215,7 +189,6 @@ Module Op
         d.Round(-pos)
         de% = pos
         d.PartSize = 0
-        'bp = New Hyper("1")
         bp = New Hyper(0, 0)
         bp(0) = 1
         pos1% = 0
@@ -248,18 +221,10 @@ nx:
 
         r1 = r * d
 
-        'l% = (hiExp - lowExp)
-        'pos1 = r1.FindHighExponent - l - 2
-        'pos1 = r.FindHighExponent
-
-        'For i% = pos1 To r1.FindHighExponent
-        'r1(i) = 0
-        'Next
 
 
         hi% = r1.FindHighExponent
-        ' r.Divide(r1(hi) * mq, 444) ' - r1.PartSize), 22)
-        r.Divide(r1(hi), 0) ' precision2) ' - r1.PartSize), 22)
+        r.Divide(r1(hi), 0)
         r.PartSize = hi + r1.PartSize + r.PartSize + de '.PartSize
         d.PartSize = -de
         Return r
@@ -268,14 +233,12 @@ nx:
     Friend Function ReciprocalValQ(d As Hyper, precision%) As Hyper
 
 
-        ' precision% = XLdivPrec         'number of 64-bit digits to extract. Must be larger than exponent range
-        'precision2% = 0 ' XLdivPrec2 'may be zero
 
 
         Dim r As New Hyper(precision, 0) ' New Hyper(0, 0)
         Dim bp, r1 As Hyper
 
-        lowVal& = 0 ' d(lowExp)
+        lowVal& = 0
 
         hiExp% = d.FindHighExponent
         lowExp% = d.FindLowExponent '000000000000000000000000000000000000000000000 d.PartSize
@@ -287,13 +250,8 @@ nx:
             lowVal& = d(lowExp)
             d(lowExp) = d(lowExp) Or 1
         Else
-            '        d(lowestNZ)
             lowVal& = d(lowExp)
             If lowVal And 1 = 0 Then
-                ' Debug.WriteLine("even nr")
-                'if the least significant bit is 0, then we can help ourselves with dividing/multiplying the dividend, and then the result, by 2^n.
-
-                'lowVal = 1 Or lowVal
                 d(lowExp - 1) = 1
                 lowVal = 1
                 lowExp -= 1
@@ -307,7 +265,6 @@ nx:
         d.Round(-pos)
         de% = pos
         d.PartSize = 0
-        'bp = New Hyper("1")
         bp = New Hyper(0, 0)
         bp(0) = 1
         pos1% = 0

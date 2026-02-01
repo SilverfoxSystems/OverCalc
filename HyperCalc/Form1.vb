@@ -1,6 +1,5 @@
 ﻿Option Explicit Off
 
-'Imports System
 Imports System.ComponentModel
 Imports System.Threading
 Imports HyperLib
@@ -11,8 +10,6 @@ Public Class Form1
 
 
     Shared a, b As Hyper
-    'Shared XLmulPrec% = 900
-    'Shared bbuff&()
     Friend Shared OALprec% = 900
     Dim lastTextInp$ = ""
 
@@ -56,20 +53,9 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
 
-        ' Dim one As New Hyper(".5")
-        'Dim d1 As New Hyper("0.5")
-        'one(0) = 1
-        'one *= d1 ' * one
-        ' d1 *= one
-        'MsgBox(d1.ToString)
-
-
         Try
             If IsNothing(a) Then GoTo npr
             LdInput()
-            't = DateAndTime.Timer
-
-            'napr:
 
 
             Select Case ComboBox1.SelectedIndex
@@ -78,31 +64,17 @@ Public Class Form1
                 Case 1
                     a.Subtract(b)
                 Case 2
-                    'a.StripZeros()
-
-
 
                     a *= b
 
-                   ' a.StripZeros()
 
                 Case 3
 
                     If chkINT(b) Then
                         a.Divide(b(0), PrecOnDivByInt64)
                     Else
-                        'a = BigDivide(a, b)
-
-                        ' Dim test As New Hyper(a)
-                        'DivideXLnwt(test, b, XLdivPrec, nIterationsAtDiv)
-                        'DivideXLnwt(a, b, XLdivPrec, nIterationsAtDiv)
-                        'DivideXL(a, b, XLdivPrec) ', nIterationsAtDiv)
 
                         a = DivisionXL(a, b, XLdivPrec) ', nIterationsAtDiv)
-                        'a *= DivideXL_log(b, XLdivPrec)
-                        'MsgBox(DivideXL_log(b, XLdivPrec).ToString)
-                        '                        a.StripZeros()
-                        'isApprox = True
                     End If
 
                 Case 4
@@ -120,15 +92,10 @@ Public Class Form1
                 Case 6
 
                     a = OpEx.NthRoot(a, b(0))
-                    'a.StripZeros()
-                    ' a.Round(OALprec)
                 Case -1
                     a = b
 
             End Select
-            ' t = DateAndTime.Timer - t
-
-            'comment out the following line to display Float64 in TextBox3
             GoTo skipDbl
 
             d# = 0
@@ -142,10 +109,6 @@ Public Class Form1
             txMonitor.Text = s3
 
 skipDbl:
-
-            'If -a.GetBottExp > OALprec Then
-            'a.Round(OALprec)
-            'End If
 
 
             s2$ = ""
@@ -166,9 +129,6 @@ skipDbl:
                     ElseIf UCase(Strings.Left(TextBox2.Text, 2)) = "MR" Then
                         printout("= " & ComboBox1.SelectedText & " M" & txMems.SelectedIndex)
                         Exit Sub
-                        ' stringOut = ""
-                        'rtx.SelectionStart = rtx.TextLength
-                        'rtx.ScrollToCaret()
 
                     End If
 
@@ -182,7 +142,6 @@ skipDbl:
                     rtx.SelectionStart = rtx.TextLength
                     rtx.SelectedText = vbCrLf
                     rtx.SelectionCharOffset = 10
-                    ' rtx.AppendText(b(0))
                     rtx.SelectedText = b(0)
                     rtx.SelectionStart = rtx.TextLength
                     rtx.SelectionCharOffset = 0
@@ -205,17 +164,7 @@ s2)
             TextBox2.Text = ""
             TextBox2.Focus()
 
-
-            'hi% = a.FindHighExponent
-            'Hyper.displayMode = Hyper.displayModeType.inHex
-
-
-            'txMonitor.Text = a.ToString
-            'txMonitor.Text = Hex(a(hi)) & vbCrLf & hi
-            'Hyper.displayMode = Hyper.displayModeType.inTrueDecimal
-
             izpis()
-            'Label3.Text = "Operation took (s): " & t
             Exit Sub
 
 npr:
@@ -231,9 +180,6 @@ npr:
             If CheckBox1.Checked Then
 
                 stringOut = s4
-                'rtx.AppendText(vbCrLf & s4)
-                'rtx.SelectionStart = rtx.TextLength
-                'rtx.ScrollToCaret()
 
             End If
             TextBox2.Focus()
@@ -280,13 +226,6 @@ npr:
         For i% = 0 To 5
             ms.Add(New Hyper(0, 0))
         Next
-        '     a = New Hyper("35")
-        '  ReDim bbuff(1)
-        '   b = New Hyper(bbuff, 0)
-        '   Hyper.AddX(b,)
-        '    b.DefineFromDecimal(44, "0")
-        'b(0) += 4
-        'Dim q As New HyperM
 
     End Sub
 
@@ -304,7 +243,6 @@ npr:
 
         PrecOnDivByInt64% = My.Settings.QuotientPrec
         nIterationsAtDiv% = My.Settings.nIterations
-        'XLdivPrec% = My.Settings.DivPrecXL
         NthRootPrec = My.Settings.RootPrec
 
         Op.AssignDivMethod(My.Settings.DivMethodType)
@@ -388,8 +326,7 @@ UCase(Strings.Left(TextBox2.Text, 1)) = "M" Then
                 Else
                     TextBox1.Clear()
                     a = Nothing
-                    'b = Nothing
-                    'bbuff = Nothing
+
                     izpis()
                     TextBox2.Focus()
                     ComboBox1.SelectedIndex = -1
@@ -430,7 +367,6 @@ Keys.Home, Keys.End, Keys.E
         If CheckBox1.Checked Then
 
             rtx.AppendText(s)
-            'lastTextInp & " = " & vbCrLf & s2)
 
             rtx.SelectionStart = rtx.TextLength
             rtx.ScrollToCaret()
@@ -447,13 +383,6 @@ Keys.Home, Keys.End, Keys.E
 
 
     Private Sub MSbtn_Click(sender As Object, e As EventArgs) Handles MSbtn.Click
-        '   ms(txMems.SelectedIndex) = a.Clone
-
-        '   If Strings.Left(rtx.Lines(UBound(rtx.Lines)), 4) <> " = M" Then
-        '& txMems.SelectedIndex Then
-        '    printout(vbCrLf & " = M" & txMems.SelectedIndex)
-        '        rtx.AppendText(vbCrLf & " = M" & txMems.SelectedIndex)
-        'lastTextInp & " = " & vbCrLf & s2)
 
         If UCase(Strings.Left(TextBox2.Text, 1)) = "M" Then
             TextBox2.Text = "MS" & txMems.SelectedIndex
@@ -481,21 +410,14 @@ Keys.Home, Keys.End, Keys.E
             apply()
         End If
 
-        '  Else
-        ' rtx.Lines(UBound(rtx.Lines)) = " = M" & txMems.SelectedIndex
-
-        '        End If
-        '       TextBox2.Focus()
     End Sub
 
     Private Sub MRbtn_Click(sender As Object, e As EventArgs) Handles MRbtn.Click
 
 
 
-        'TextBox2.Text = txMems.Text
         TextBox2.Text = "MR" & txMems.SelectedIndex
         apply()
-        '        TextBox2.Focus()
     End Sub
 
     Private Sub apply()
@@ -505,21 +427,16 @@ Keys.Home, Keys.End, Keys.E
     End Sub
     Private Sub MCbtn_Click(sender As Object, e As EventArgs) Handles MCbtn.Click
 
-        'ms(txMems.SelectedIndex) = New Hyper(0, 0)
         TextBox2.Text = "MC" + txMems.SelectedText.ToString
         apply()
     End Sub
 
 
 
-    'Class GfG
-
-
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
 
         LdInput()
-        'a = NthRoot(b, 2)
         a = SqrXL(b)
         finishUp()
 
@@ -545,11 +462,7 @@ Keys.Home, Keys.End, Keys.E
 
 
         Try
-            'If IsNothing(a) Then GoTo npr
             LdInput()
-
-            'Dim tolr As New Hyper(-precAtSQR, -precAtSQR)
-            'tolr(-precAtSQR) = 1
 
 napr:
             a = b * b
@@ -607,7 +520,6 @@ napr:
         TextBox2.Clear()
 
         If CheckBox1.Checked Then
-            '            If final Then
 
             If TextBox2.TextLength Then lastTextInp = TextBox2.Text
 
@@ -628,25 +540,17 @@ napr:
         Else
 
         End If
-        '        End If
 
     End Sub
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
-        '      If TextBox2.SelectionStart Then
         Button1.PerformClick()
-        'LdInput()
-        ' a = b
         ComboBox1.SelectedIndex = 6
 
-        '       outputA(False)
     End Sub
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
-        'If TextBox2.SelectionStart Then
         ComboBox1.SelectedIndex = -1
         Button1.PerformClick()
-        'LdInput()
-        ' a = b
         ComboBox1.SelectedIndex = 5
         finishUp()
 
@@ -663,7 +567,7 @@ napr:
     Sub finishUp()
         a.StripZeros()
         prepareA()
-        '        a = floorSqrt(b)
+
         s2$ = olepšaj(a.ToString)
         TextBox1.Text = s2
         TextBox2.Clear()
@@ -682,11 +586,8 @@ napr:
             If UCase(Strings.Left(s, 1)) = "M" Then
                 txt = Mid(s, 2)
                 Select Case UCase(Strings.Left(txt, 1))
-'Case 
                     Case "S"
-                        txt = Mid(s, 3) ' : memNr% = txt
-                        'txMems.SelectedIndex = memNr
-                        'MSbtn.PerformClick()
+                        txt = Mid(s, 3)
                         ms(txt) = a.Clone
                         '-printout(vbCrLf & " = M" & txMems.SelectedIndex)
 
@@ -699,29 +600,11 @@ napr:
                         txt = Mid(s, 3) ' : memNr% = txt
                         b = ms(txt).Clone
                 End Select
-
-
-                'memNr% = txt
-                ' b = ms(memNr).Clone
-                '                GoTo napr
                 Exit Sub
             End If
 
-            'If InStr(s, ",") Then
-            'txt = s.Replace(",", ".")
-
-            'End If
             If s.Length Then
                 b = New Hyper(s)
-                'b.StripZeros()
-                'Dim tmp As New Hyper(s)
-                'ReDim bbuff(0)
-                'b.PartSize = 0
-                'b.Add(tmp)
-                'b += tmp
-                'ElseIf Not IsNothing(b) Then
-                'Else
-                ' b = a.Clone
 
             End If
         Catch ex As Exception

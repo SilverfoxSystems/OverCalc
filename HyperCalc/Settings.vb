@@ -3,9 +3,8 @@
 Public Class Settings
 
     Private NiterationsNewt%, NiterationsSimple%, divPrecQ%, divPrecSimple%, divPrecNewton%, divPrecLog%
-    '   Private nIterationsSqrNewt%, nIterationsSqrSimplet%, nThRootPrec%, SqrPrecSimple%, SqrPrecNewton%
     Private Sub Settings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        load()
+        loadS()
         ToolTip1.ShowAlways = True
         ToolTip1.SetToolTip(Me.LblOVLprec, hintOVLprec)
         ToolTip1.SetToolTip(Me.lblBaseDivPrec64bit, hintQuotPrec)
@@ -33,8 +32,6 @@ Public Class Settings
 
         My.Settings.OverallPrecision = txOVLprec.Value
         My.Settings.QuotientPrec = NumericUpDown2.Value
-        ' My.Settings.DivPrecXL = txDivXLprec.Value
-        'My.Settings.nIterations = txNiterations.Value
         My.Settings.ConversionDecPrec = NumericUpDown5.Value
         My.Settings.DisplayDigitsDec = NumericUpDown6.Value
         My.Settings.nIterationsRoots = txIterationsSQR.Value
@@ -62,18 +59,14 @@ Public Class Settings
         End If
     End Sub
 
-    Private Sub load()
+    Private Sub loadS()
         CheckBox1.Checked = My.Settings.ApplyOverallPrec
         txOVLprec.Value = My.Settings.OverallPrecision
         NumericUpDown2.Value = My.Settings.QuotientPrec
-        'txDivXLprec.Value = My.Settings.DivPrecXL
-        'txNiterations.Value = My.Settings.nIterations
         NumericUpDown5.Value = My.Settings.ConversionDecPrec
         NumericUpDown6.Value = My.Settings.DisplayDigitsDec
         txIterationsSQR.Value = My.Settings.nIterationsRoots
         txRootPrec.Value = My.Settings.RootPrec
-        '        NumericUpDown6.Value = My.S
-        '        ettings.DisplayDigitsDec
         ComboBox1.SelectedIndex = My.Settings.DivMethodType
         NiterationsSimple = My.Settings.nIterations
         NiterationsNewt = My.Settings.nIterationsDivNewton
@@ -104,7 +97,7 @@ Public Class Settings
         If MsgBox("Reset settings to defaults?", vbYesNo) = MsgBoxResult.Yes Then
 
             My.Settings.Reset()
-            load()
+            loadS()
         End If
     End Sub
 
