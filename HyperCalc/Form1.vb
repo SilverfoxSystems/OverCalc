@@ -13,43 +13,6 @@ Public Class Form1
     Friend Shared OALprec% = 900
     Dim lastTextInp$ = ""
 
-    Function olepšaj(s$) As String
-
-        s1$ = ""
-        If Strings.Left(s, 1) <> "-" Then
-            If InStr(s, "e") Then
-                s1 = s.TrimStart("0")
-            ElseIf InStr(s, ".") Then
-                s1 = s.Trim("0")
-            Else
-                s1 = s.TrimStart("0")
-            End If
-
-            If Strings.Left(s1, 1) = "." Then s1 = "0" + s1
-
-        Else
-            s1$ = s.Remove(0, 1)
-            If InStr(s, "e") Then
-                s1 = s1.TrimStart("0")
-            ElseIf InStr(s, ".") Then
-                s1 = s1.Trim("0")
-            Else
-                s1 = s1.TrimStart("0")
-            End If
-            If Strings.Left(s1, 1) = "." Then
-                s1 = "-0" + s1
-            Else
-                s1 = "-" + s1
-
-            End If
-        End If
-
-        If Strings.Right(s1, 1) = "." Then
-            Return Strings.Left(s1, Len(s1) - 1)
-        Else
-            Return s1
-        End If
-    End Function
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
 
@@ -115,7 +78,7 @@ skipDbl:
 
             a.StripZeros()
             prepareA()
-            s2$ = olepšaj(a.ToString)
+            s2$ = a.ToString
 
             If CheckBox1.Checked Then
 
@@ -154,13 +117,13 @@ s2)
                     rtx.AppendText(stringOut & " " & ComboBox1.Text & vbCrLf &
                         lastTextInp & " = " & vbCrLf & s2)
 
-                    End If
-                    stringOut = ""
-                    rtx.SelectionStart = rtx.TextLength
-                    rtx.ScrollToCaret()
                 End If
+                stringOut = ""
+                rtx.SelectionStart = rtx.TextLength
+                rtx.ScrollToCaret()
+            End If
 
-                TextBox1.Text = s2
+            TextBox1.Text = s2
             TextBox2.Text = ""
             TextBox2.Focus()
 
@@ -173,7 +136,7 @@ npr:
             TextBox2.Text = ""
             izpis()
             prepareA()
-            s4$ = olepšaj(a.ToString)
+            s4$ = a.ToString
             TextBox1.Text = s4
             ComboBox1.SelectedItem = Nothing
 
@@ -515,7 +478,7 @@ napr:
 
 
         prepareA()
-        s2$ = olepšaj(a.ToString)
+        s2$ = a.ToString
         TextBox1.Text = s2
         TextBox2.Clear()
 
@@ -568,7 +531,7 @@ napr:
         a.StripZeros()
         prepareA()
 
-        s2$ = olepšaj(a.ToString)
+        s2$ = a.ToString
         TextBox1.Text = s2
         TextBox2.Clear()
         TextBox2.Focus()
