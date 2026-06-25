@@ -34,16 +34,6 @@ Public Class Form1
                 Case 3
 
                     If chkINT(b) Then
-                        If b(0) < 0 Then
-                            a.Negate()
-                            a.Divide(-b(0), PrecOnDivByInt64) ' QuotientPrecision) ' <= LngInt \ 2 Then
-
-                        Else
-
-                            a.Divide(b(0), PrecOnDivByInt64) ' QuotientPrecision) ' <= LngInt \ 2 Then
-
-                        End If
-
                         a.Divide(b(0), PrecOnDivByInt64)
                     Else
 
@@ -51,17 +41,8 @@ Public Class Form1
                     End If
 
                 Case 4
-                    If chkINT(b) Then
-                        x& = 0
-                        If b(0) < 0 Then
-                            a.Negate()
-                            x = -a.Divide(-b(0), 0) ' QuotientPrecision) ' <= LngInt \ 2 Then
-
-                        Else
-
-                            x = a.Divide(b(0), 0) ' QuotientPrecision) ' <= LngInt \ 2 Then
-
-                        End If
+                    If chkINT(a) Then
+                        x& = a.Divide(b(0), PrecOnDivByInt64)
                         a = New Hyper(0, 0)
                         a(0) = x
                     Else
