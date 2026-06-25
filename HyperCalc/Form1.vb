@@ -20,6 +20,7 @@ Public Class Form1
             If IsNothing(a) Then GoTo npr
             LdInput()
 
+
             Select Case ComboBox1.SelectedIndex
                 Case 0
                     a.Add(b)
@@ -33,7 +34,6 @@ Public Class Form1
                 Case 3
 
                     If chkINT(b) Then
-<<<<<<< HEAD
                         If b(0) < 0 Then
                             a.Negate()
                             a.Divide(-b(0), PrecOnDivByInt64) ' QuotientPrecision) ' <= LngInt \ 2 Then
@@ -43,9 +43,6 @@ Public Class Form1
                             a.Divide(b(0), PrecOnDivByInt64) ' QuotientPrecision) ' <= LngInt \ 2 Then
 
                         End If
-=======
-
->>>>>>> Update according to newly released HyperLib (v4.4)
 
                         a.Divide(b(0), PrecOnDivByInt64)
                     Else
@@ -56,7 +53,6 @@ Public Class Form1
                 Case 4
                     If chkINT(b) Then
                         x& = 0
-<<<<<<< HEAD
                         If b(0) < 0 Then
                             a.Negate()
                             x = -a.Divide(-b(0), 0) ' QuotientPrecision) ' <= LngInt \ 2 Then
@@ -66,11 +62,6 @@ Public Class Form1
                             x = a.Divide(b(0), 0) ' QuotientPrecision) ' <= LngInt \ 2 Then
 
                         End If
-=======
-
-                        x = a.Divide(b(0), 0) ' QuotientPrecision) ' <= LngInt \ 2 Then
-
->>>>>>> Update according to newly released HyperLib (v4.4)
                         a = New Hyper(0, 0)
                         a(0) = x
                     Else
