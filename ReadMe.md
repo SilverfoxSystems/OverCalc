@@ -1,5 +1,6 @@
 
 Prerequisite for using this code:
-HyperLib must be installed from [Visual Studio Marketplace- Hyper]( https://marketplace.visualstudio.com/items?itemName=SilverfoxSystems0.Hyper) (Updated to v3.0 in June 2026)
+HyperLib must be installed from [Visual Studio Marketplace- Hyper]( https://marketplace.visualstudio.com/items?itemName=SilverfoxSystems0.Hyper) (Updated to v4.4)
 
-**Under development**
+Division techniques in Op.vb
+Roots in OpEx.vb
